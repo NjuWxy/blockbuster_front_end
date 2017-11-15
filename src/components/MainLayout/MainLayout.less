@@ -1,0 +1,143 @@
+.layout {
+  min-height: 100%;
+  //background-color: rgba(251, 127, 130, 0.11);
+  //background-color: rgba(234, 234, 234, 0.81);
+  background-color: #f9f9f9;
+  position: relative;
+}
+.logo {
+  float: left;
+  font-size: 32px;
+  padding-top: 0;
+  color: #f25771;
+  font-family: "娃娃体-简";
+}
+
+.header {
+  position: fixed;
+  width: 100%;
+  height: 48px;
+  background-color: white;
+  z-index: 1;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.2);
+  //padding-left: 64px;
+  //padding-right: 64px;
+}
+
+.header .menus {
+  height: inherit;
+  float: left;
+  text-align: center;
+  border-bottom: none;
+}
+
+.header .separator {
+  font-size: 20px;
+  opacity: 0.5;
+  padding-top: 6px;
+  float: left;
+}
+
+.header .search {
+  float: left;
+  width: 100%;
+  margin-top: 10px;
+  outline:none;
+}
+
+
+.layout .content {
+  margin-top: 48px;
+  padding-top: 20px;
+  flex: auto;
+}
+
+.layout .content .row {
+  min-height: 100%;
+}
+
+.layout .content .row .col {
+  min-height: 800px;
+}
+
+.layout .footer {
+  text-align: center;
+  margin-top: 40px;
+  border-top: 1px solid #f4f4f4;
+  font-size: 16px;
+  opacity: 0.7;
+  background-color: white;
+}
+
+.plus {
+  font-size: 32px;
+  color: rgba(64, 64, 64, 0.4);
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.plus:hover {
+  color: rgba(64,64,64,0.6);
+}
+
+.layMenu {
+  width: 100px;
+  text-align: center;
+}
+
+//.layMenu:hover {
+//  background-color: rgba(235, 194, 17, 0.7);
+//  color: white;
+//}
+
+.postPhoto {
+  min-width: 1130px;
+  overflow: auto;
+  top: 60px;
+}
+
+
+:global {
+  .ant-menu-horizontal > .ant-menu-item:hover, .ant-menu-horizontal > .ant-menu-submenu:hover,
+  .ant-menu-horizontal > .ant-menu-item-active, .ant-menu-horizontal > .ant-menu-submenu-active {
+    border-bottom: 2px solid white;
+    color: #f25771;
+  }
+
+  .ant-menu-horizontal > .ant-menu-item-selected, .ant-menu-horizontal > .ant-menu-submenu-selected{
+    border-bottom: 2px solid #f25771;
+    color: #f25771;
+  }
+
+  .ant-menu-submenu-title:hover, .ant-menu-item-active, .ant-menu-item:hover {
+    color: #f25771;
+  }
+
+  .ant-menu-submenu {
+    position: relative;
+  }
+
+  .ant-input {
+    border-radius:3px;
+  }
+
+  //.ant-input:hover, .ant-input:focus {
+  //  border: #35826a 1px solid;
+  //  box-shadow:0 0 5px rgba(53, 130, 106, 0.42);
+  //  -webkit-box-shadow:0 0 5px rgba(53, 130, 106, 0.42);
+  //  -moz-box-shadow:0 0 5px rgba(53, 130, 106, 0.42);
+  //}
+
+  .ant-menu-horizontal {
+    font-size: 14px;
+  }
+
+  .ant-back-top {
+    bottom: 100px;
+    right: 20px;
+  }
+
+}
+
+
+
