@@ -6,7 +6,7 @@ import { connect } from 'dva';
 import { Row, Col, Menu } from 'antd';
 import MainLayout from '../../components/MainLayout/MainLayout';
 import styles from './Show.css';
-import ImageCard from '../../components/ImageCard/ImageCard';
+import ImageCard from '../../components/Image/ImageCard';
 
 class Show extends React.Component {
   render() {

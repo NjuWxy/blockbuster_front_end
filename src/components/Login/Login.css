@@ -1,0 +1,13 @@
+.anotherFormNow {
+  color: #398ee2;
+  cursor: pointer;
+}
+.anotherFormNow:hover {
+  text-decoration: underline;
+}
+.form {
+  width: 100%;
+}
+.form_button {
+  width: 100%;
+}

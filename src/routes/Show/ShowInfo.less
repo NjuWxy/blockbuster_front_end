@@ -1,0 +1,71 @@
+.img {
+  width: 80%;
+  height: auto;
+  box-shadow: 0 1px 6px rgba(6,0,0,0.2);
+  border: 6px solid white;
+}
+
+:global {
+  .image-gallery-thumbnail, image-gallery-thumbnail-label {
+    height: 100px;
+    width: auto;
+  }
+}
+
+
+.publisherPart {
+  padding-top: 6px;
+  overflow: auto;
+  background-color: rgba(242, 87, 113, 0.02);
+  padding-bottom: 6px;
+  border: 2px solid #f4f4f4;
+  margin-top: 12px;
+}
+
+.publisherPart .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline;
+  float: left;
+}
+
+.publisherPart .info {
+  display: inline;
+  float: left;
+  margin-left: 10px;
+}
+
+.publisherPart .nickname {
+  font-weight: 700;
+  font-size: 14px;
+  padding-top: 2px;
+  cursor: pointer;
+}
+
+.publisherPart .time, .publisherPart .from {
+  color: #b4b4b4;
+  font-size: 12px;
+}
+
+.publisherPart .time {
+  margin-left: 10px;
+}
+
+.publisherPart .follow {
+  display: inline;
+  float: right;
+  color: #f2cc11;
+  border: 1px solid rgba(242, 204, 17, 0.38);
+  border-radius: 10%;
+  background-color: inherit;
+  font-size: 12px;
+  padding: 4px 10px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.publisherPart .follow:hover {
+  color: white;
+  background-color: #f2cc11;
+}

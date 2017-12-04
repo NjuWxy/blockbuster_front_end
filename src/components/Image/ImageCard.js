@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import { connect } from 'dva';
+import { routerRedux } from 'dva/router';
 import { Icon, Avatar, Row, Col, Button } from 'antd';
 import styles from './ImageCard.css';
 import Tag from '../../components/Tag/Tag';
@@ -21,9 +22,15 @@ class ImageCard extends React.Component {
       descriptionPartState: styles.hideDescriptionPart,
     });
   };
+  toShowInfo = () => {
+    this.props.dispatch(routerRedux.push({
+      pathname: '/ShowInfo',
+      showID: '2764',
+    }))
+  };
   render()  {
     return (
-      <div className={styles.card}>
+      <div className={styles.card} onClick={this.toShowInfo}>
         <div
           className={styles.custom_image}
           onMouseEnter={this.showDescription}

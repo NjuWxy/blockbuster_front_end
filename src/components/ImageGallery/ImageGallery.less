@@ -1,0 +1,96 @@
+.custom_arrow_thumb{
+  height: 220px;
+}
+.custom_arrow_thumb .user_arrow {
+  top: 50%;
+  margin-top: -40px;
+}
+.custom_arrow_thumb .user_arrow .img_wrapper {
+  width: 120px;
+  height: 80px;
+  float: left;
+  position: relative;
+}
+.custom_arrow_thumb .user_arrow .img_wrapper li {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+}
+.custom_arrow_thumb .user_arrow .arrow {
+  width: 20px;
+  height: 80px;
+  background: rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+.custom_arrow_thumb .user_arrow .arrow:before,
+.custom_arrow_thumb .user_arrow .arrow:after {
+  width: 2px;
+  height: 15px;
+  background: #fff;
+  display: block;
+  content: ' ';
+  position: absolute;
+}
+.custom_arrow_thumb .user_arrow.next {
+  right: -120px;
+}
+.custom_arrow_thumb .user_arrow.next .arrow {
+  float: left;
+}
+.custom_arrow_thumb .user_arrow.next .arrow:before {
+  -webkit-transform: rotate(-40deg);
+  transform: rotate(-40deg);
+  top: 28px;
+  left: 10px;
+}
+.custom_arrow_thumb .user_arrow.next .arrow:after {
+  -webkit-transform: rotate(40deg);
+  transform: rotate(40deg);
+  bottom: 27px;
+  left: 10px;
+}
+.custom_arrow_thumb .user_arrow.prev {
+  left: -120px;
+}
+.custom_arrow_thumb .user_arrow.prev .arrow {
+  float: right;
+}
+.custom_arrow_thumb .user_arrow.prev .arrow:before {
+  -webkit-transform: rotate(40deg);
+  transform: rotate(40deg);
+  top: 28px;
+  left: 8px;
+}
+.custom_arrow_thumb .user_arrow.prev .arrow:after {
+  -webkit-transform: rotate(-40deg);
+  transform: rotate(-40deg);
+  bottom: 27px;
+  left: 8px;
+}
+.custom_arrow_thumb .user_thumb {
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.15);
+  height: 40px;
+}
+.custom_arrow_thumb .user_thumb > span {
+  width: 50px;
+  height: 30px;
+  margin: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  -webkit-transition: background .3s;
+  transition: background .3s;
+  background: transparent;
+}
+.custom_arrow_thumb .user_thumb > span.active {
+  background: rgba(255, 255, 255, 0.45);
+}
+.custom_arrow_thumb .user_thumb > span i {
+  display: block;
+  width: 46px;
+  height: 26px;
+  margin: 2px;
+  background-size: cover;
+  background-position: center;
+}

@@ -3,7 +3,7 @@
   "scripts": {
     "start": "roadhog server",
     "build": "roadhog build",
-    "lint": "eslint --ext .js src test",
+    "lint": "eslint --ext .js src test"
   },
   "engines": {
     "install-node": "6.9.2"
@@ -20,7 +20,8 @@
     "rc-tween-one": "^1.5.5",
     "react-image-gallery": "^0.8.3",
     "react": "^15.4.0",
-    "react-dom": "^15.4.0"
+    "react-dom": "^15.4.0",
+    "react-avatar-editor": "^10.3.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",

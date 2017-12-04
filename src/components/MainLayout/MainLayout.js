@@ -7,18 +7,20 @@ import { routerRedux } from 'dva/router';
 import { Layout, Menu, Icon, Input, Col, Row, Affix, Dropdown, BackTop, Modal } from 'antd';
 import styles from './MainLayout.less';
 import PostPhoto from '../../components/PostPhoto/PostPhoto';
+import Login from '../Login/Login';
 
 const { Content, Footer } = Layout;
 const SubMenu = Menu.SubMenu;
 
 class MainLayout extends React.Component {
-  state = {
-    showPostPhoto: false
-  };
   handleClick = (e) => {
-    this.props.dispatch(routerRedux.push({
-      pathname: `/${e.key}`
-    }));
+    if(e.key === 'Login'){
+      this.showLogin();
+    } else {
+      this.props.dispatch(routerRedux.push({
+        pathname: `/${e.key}`
+      }));
+    }
   };
   handleSearch = (e) => {
     console.log(e.target.value);
@@ -29,14 +31,28 @@ class MainLayout extends React.Component {
     }
   };
   showPostPhoto = () => {
-    this.setState({
-      showPostPhoto: true,
+    this.props.dispatch({
+      type: 'modalStates/showPostPhoto',
+      payload: { showPostPhoto: true }
     })
   };
   hidePostPhoto = () => {
-    this.setState({
-      showPostPhoto: false,
-    });
+    this.props.dispatch({
+      type: 'modalStates/showPostPhoto',
+      payload: { showPostPhoto: false }
+    })
+  };
+  showLogin = () => {
+    this.props.dispatch({
+      type: 'modalStates/showLogin',
+      payload: { showLogin: true }
+    })
+  };
+  hideLogin = () => {
+    this.props.dispatch({
+      type: 'modalStates/showLogin',
+      payload: { showLogin: false }
+    })
   };
   render(){
     return (
@@ -83,7 +99,7 @@ class MainLayout extends React.Component {
                       <Menu.Item key="CancelAccount">注销</Menu.Item>
                     </SubMenu>
                     :
-                    <Menu.Item key="login"><Icon type="user" />登录／注册</Menu.Item>
+                    <Menu.Item key="Login"><Icon type="setting"/>登录/注册</Menu.Item>
                 }
               </Menu>
             </Col>
@@ -113,13 +129,22 @@ class MainLayout extends React.Component {
             </Col>
           </Row>
           <Modal
-            visible={this.state.showPostPhoto}
+            visible={this.props.showPostPhoto}
             footer={null}
             onCancel={this.hidePostPhoto}
             className={styles.postPhoto}
             title="秀出你的大片儿"
           >
             <PostPhoto />
+          </Modal>
+          <Modal
+            visible={this.props.showLogin}
+            footer={null}
+            onCancel={this.hideLogin}
+            className={styles.login}
+            title="登录/注册"
+          >
+            <Login />
           </Modal>
         </Content>
         <Footer className={styles.footer}>
@@ -132,7 +157,8 @@ class MainLayout extends React.Component {
 
 function mapStateToProps(state) {
   const { isLogin, username } = state.users;
-  return { isLogin, username };
+  const { showLogin, showPostPhoto } = state.modalStates;
+  return { isLogin, username, showLogin, showPostPhoto };
 }
 
 export default connect(mapStateToProps)(MainLayout);

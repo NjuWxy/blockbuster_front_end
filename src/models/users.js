@@ -6,7 +6,7 @@ import * as userService from '../services/example';
 export default {
   namespace: 'users',
   state: {
-    isLogin: (window.sessionStorage.getItem('email') === null),
+    isLogin: (window.sessionStorage.getItem('email') !== null),
     username: 'Shea_Wong'
   },
 
