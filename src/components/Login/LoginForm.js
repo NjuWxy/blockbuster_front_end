@@ -13,6 +13,17 @@ class LoginFormClass extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        this.props.dispatch({
+          type: 'users/login',
+          payload:{
+            email: values.email,
+            password: values.password
+          }
+        });
+        this.props.dispatch({
+          type: 'modalStates/showLogin',
+          payload: {showLogin:false}
+        });
         console.log('Received values of form: ', values);
       }
     });

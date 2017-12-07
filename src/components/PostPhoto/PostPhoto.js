@@ -22,9 +22,11 @@ class PostPhotoForm extends React.Component {
      */
     inputNewAlbumValue: '',
     /**
-     * 选择专辑下拉框的选项，是该用户已有的专辑 todo 每个用户有一个默认专辑，初选为默认专辑
+     * 选择专辑下拉框的选项，是该用户已有的专辑名称 todo 每个用户有一个默认专辑，初选为默认专辑
      */
-    albums: ['默认专辑','胶片','少女写真','人像','摄影','婚纱'],
+    // albums: this.props.albumTitles.map((album) => {
+    //   return(<Option key={album}>{album}</Option>)
+    // }),
     /**
      * 选择专辑的选定值, 每个用户有一个默认专辑，初选为默认专辑
      */
@@ -138,13 +140,31 @@ class PostPhotoForm extends React.Component {
    */
   handleInputNewAlbumConfirm = () => {
     const inputNewAlbumValue = this.state.inputNewAlbumValue;
-    let albums = this.state.albums;
-    if(inputNewAlbumValue && albums.indexOf(inputNewAlbumValue) === -1){
-      albums = [...albums, inputNewAlbumValue];
-    }
-    console.log(albums);
+    this.props.dispatch({
+      type: 'users/createAlbum',
+      payload: { album: inputNewAlbumValue}
+    });
+    let albums = this.props.albums;
+    const email = window.sessionStorage.getItem("email");
+    let newAlbum = {
+      aid: email+inputNewAlbumValue,
+      title:inputNewAlbumValue,
+      email
+    };
+    albums.push(newAlbum);
+    this.props.dispatch({
+      type: 'users/updateAlbums',
+      payload:{ albums },
+    });
+    // let albums = this.state.albums;
+    // if(inputNewAlbumValue && albums.indexOf(inputNewAlbumValue) === -1){
+    //   albums = [...albums, inputNewAlbumValue];
+    // }
+    // console.log(albums);
     this.setState({
-      albums,
+      // albums: this.props.albumTitles.map((album) => {
+      //   return(<Option key={album}>{album}</Option>)
+      // }),
       inputNewAlbumVisible: false,
       inputNewAlbumValue: '',
       selectValue: inputNewAlbumValue
@@ -168,19 +188,42 @@ class PostPhotoForm extends React.Component {
    * @param e
    */
   handleSubmit = (e) => {
+    console.log("submitPhot");
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        const share = {
-          title: values.title,
-          description: values.description,
-          tags: this.state.tags,
-          album: this.state.selectValue,
-          images: this.state.fileList.map((file) => { return file.originFileObj})
-        };
-        console.log(share);
+        //files, title, description, tags, albumId, email
+        const email = window.sessionStorage.getItem("email");
+        const albumId = email+this.state.selectValue;
+        this.props.dispatch({
+          type: 'show/postPhoto',
+          payload: {
+            fileNames: this.state.fileList.map((file)=>file.name),
+            title: values.title,
+            description: values.description,
+            tags: this.state.tags,
+            albumId, email
+          }
+        });
+        console.log(this.state.fileList);
+        this.hidePostPhoto();
+        // const share = {
+        //   title: values.title,
+        //   description: values.description,
+        //   tags: this.state.tags,
+        //   album: this.state.selectValue,
+        //   images: this.state.fileList.map((file) => { return file.originFileObj})
+        // };
+        // console.log(share);
       }
+    });
+  };
+
+  hidePostPhoto = () => {
+    this.props.dispatch({
+      type:'modalStates/showPostPhoto',
+      payload: {showPostPhoto: false},
     });
   };
 
@@ -216,13 +259,14 @@ class PostPhotoForm extends React.Component {
      * 热门标签 todo 向底层请求热门标签
      * @type {[*]}
      */
-    const hotTags = ['女神','胶片','少女写真','人像','摄影','婚纱'];
+    const hotTags = this.props.hotTags;
 
     return (
       <Row className={styles.content}>
         <Col span={15}>
           <div className={styles.picturePart}>
             <Upload
+              action="/api/show/upload"
               listType="picture-card"
               fileList={fileList}
               onChange={this.handleChange}
@@ -319,10 +363,8 @@ class PostPhotoForm extends React.Component {
                       value={this.state.selectValue}
                       dropdownStyle={{maxHeight: 100, overflow: 'auto'}}
                     >
-                      {this.state.albums.map((album) => {
-                        return(
-                          <Option key={album}>{album}</Option>
-                        );
+                      {this.props.albumTitles.map((album) => {
+                        return(<Option key={album}>{album}</Option>)
                       })}
                     </Select>
                     <div style={{color: 'orange'}}>OR</div>
@@ -360,4 +402,13 @@ class PostPhotoForm extends React.Component {
 
 const PostPhoto = Form.create()(PostPhotoForm);
 
-export default connect()(PostPhoto);
+function mapStateToProps(state) {
+  const { albums } = state.users;
+  const { hotTags } = state.show;
+  const albumTitles = albums.map((album) => album.title);
+  // console.log(albums);
+  // console.log(albumTitles);
+  return { albumTitles, albums, hotTags };
+}
+
+export default connect(mapStateToProps)(PostPhoto);

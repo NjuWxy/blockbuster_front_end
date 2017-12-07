@@ -16,7 +16,18 @@ class SigninForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        this.props.dispatch({
+          type: 'users/signUp',
+          payload:{
+            username: values.username,
+            email: values.email,
+            password: values.password
+          }
+        });
+        this.props.dispatch({
+          type: 'modalStates/showLogin',
+          payload: {showLogin:false}
+        });
       }
     });
   };

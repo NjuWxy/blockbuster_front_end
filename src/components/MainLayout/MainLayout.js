@@ -4,7 +4,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
-import { Layout, Menu, Icon, Input, Col, Row, Affix, Dropdown, BackTop, Modal } from 'antd';
+import { Layout, Menu, Icon, Input, Col, Row, Affix, Dropdown, BackTop, Modal,message } from 'antd';
 import styles from './MainLayout.less';
 import PostPhoto from '../../components/PostPhoto/PostPhoto';
 import Login from '../Login/Login';
@@ -14,28 +14,62 @@ const SubMenu = Menu.SubMenu;
 
 class MainLayout extends React.Component {
   handleClick = (e) => {
+    this.props.dispatch(routerRedux.push({
+      pathname: `/${e.key}`
+    }));
+  };
+  handleUserAffair = (e) => {
+    //登陆／注册
     if(e.key === 'Login'){
       this.showLogin();
-    } else {
-      this.props.dispatch(routerRedux.push({
-        pathname: `/${e.key}`
-      }));
+      //退出
+    } else if(e.key === 'Logout'){
+      this.props.dispatch({
+        type: 'users/logout',
+      });
+      //注销账号
+    } else if(e.key === 'SignOut'){
+      this.props.dispatch({
+        type: 'users/signOut',
+      })
     }
   };
   handleSearch = (e) => {
     console.log(e.target.value);
   };
+  /**
+   * 点击发布（发布活动或发布大片儿），需要首先判断用户是否已登陆
+   * @param e
+   */
   handlePost = (e) => {
-    if(e.key === 'PostPhoto'){
-      this.showPostPhoto();
+    if(!this.props.isLogin){
+      message.error("请先登陆");
+    }else {
+      if(e.key === 'PostPhoto'){
+        this.showPostPhoto();
+      }
     }
   };
   showPostPhoto = () => {
+    this.prePost();
+    //然后显示发布大片儿界面
     this.props.dispatch({
       type: 'modalStates/showPostPhoto',
       payload: { showPostPhoto: true }
     })
   };
+
+  prePost = () => {
+    //首先获得该用户的所有相册
+    this.props.dispatch({
+      type: 'users/getAlbums',
+    });
+    //然后得到热门标签
+    // this.props.dispatch({
+    //   type: 'show/getHotTags',
+    // })
+  };
+
   hidePostPhoto = () => {
     this.props.dispatch({
       type: 'modalStates/showPostPhoto',
@@ -83,7 +117,7 @@ class MainLayout extends React.Component {
             </Col>
             <Col offset={1} span={2}>
               <Menu
-                onClick={this.handleClick}
+                onClick={this.handleUserAffair}
                 selectedKeys={['']}
                 mode="horizontal"
                 className={styles.menus}
@@ -92,11 +126,11 @@ class MainLayout extends React.Component {
                   this.props.isLogin
                     ?
                     <SubMenu
-                      title={<span><Icon type="user" />{this.props.username}</span>}
+                      title={<span><Icon type="user" />{this.props.user.username}</span>}
                     >
                       <Menu.Item key="UserPage">主页</Menu.Item>
                       <Menu.Item key="Logout">退出</Menu.Item>
-                      <Menu.Item key="CancelAccount">注销</Menu.Item>
+                      <Menu.Item key="SignOut">注销</Menu.Item>
                     </SubMenu>
                     :
                     <Menu.Item key="Login"><Icon type="setting"/>登录/注册</Menu.Item>
@@ -156,9 +190,9 @@ class MainLayout extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { isLogin, username } = state.users;
+  const { isLogin, user } = state.users;
   const { showLogin, showPostPhoto } = state.modalStates;
-  return { isLogin, username, showLogin, showPostPhoto };
+  return { isLogin, user, showLogin, showPostPhoto };
 }
 
 export default connect(mapStateToProps)(MainLayout);

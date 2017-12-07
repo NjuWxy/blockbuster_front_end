@@ -28,7 +28,24 @@ class ImageCard extends React.Component {
       showID: '2764',
     }))
   };
+  /**
+   * 用户给该条大片儿秀点赞
+   */
+  handleLike = () => {
+
+  };
   render()  {
+    console.log(this.props.show);
+    const likeNum = this.props.show.likeNum;
+    const isLiked = this.props.show.isLiked;
+    const tags = this.props.show.tags;
+    const pictures = this.props.show.pictures;
+    const date = this.props.show.date;
+    const description = this.props.show.description;
+    const picNum = pictures.length;
+    const cover ="http://localhost:8080"+pictures[0];
+
+    console.log(cover);
     return (
       <div className={styles.card} onClick={this.toShowInfo}>
         <div
@@ -36,19 +53,18 @@ class ImageCard extends React.Component {
           onMouseEnter={this.showDescription}
           onMouseLeave={this.hideDescription}
         >
-          <img alt="example" src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
+          <img alt="example" src={cover} />
           <div className={this.state.descriptionPartState}>
             <div className={styles.title}>胶片第一次试机</div>
-            <p>今年七月份新入一台佳能eos1v，迫不及待约了小伙伴试机。
-              39度高温，拍了好几个小时，换了八身衣服，后来因为不熟悉机器，
-              导致五卷胶卷只有三卷成型。好在留下的也算满意。</p>
+            <p>{description}</p>
             <div className={styles.tagPart}>
-              <span className={styles.activityTag}>#2017胶片摄影赛</span>
-              <span className={styles.tag}>#复古</span>
-              <span className={styles.tag}>#老街</span>
-              <span className={styles.tag}>#胶片</span>
-              <span className={styles.tag}>#人像</span>
-              <span className={styles.tag}>#历史</span>
+              {
+                tags.map((tag,index) => {
+                  return(
+                    <span className={styles.tag} key={index}>#{tag}</span>
+                  )
+                })
+              }
             </div>
           </div>
         </div>
@@ -57,15 +73,15 @@ class ImageCard extends React.Component {
           <div className={styles.number}>3445</div>
           <img className={styles.comments} src={require('../../assets/comment.svg')} />
           <div className={styles.number}>289</div>
-          <img className={styles.likes} src={require('../../assets/like.svg')} />
-          <div className={styles.number}>5376</div>
-          <div className={styles.picNum}>共6张</div>
+          <img className={styles.likes} src={require('../../assets/like.svg')} onClick={this.handleLike}/>
+          <div className={styles.number}>{likeNum}</div>
+          <div className={styles.picNum}>共{picNum}张</div>
           <img className={styles.pictures} src={require('../../assets/pictures.svg')} />
         </div>
         <div className={styles.publisherPart}>
           <Avatar className={styles.avatar} src={require('../../assets/avatar/avatar.jpg')} />
           <div className={styles.info}>
-            <div className={styles.nickname}>Shea_Wong<span className={styles.time}>2017-09-17</span></div>
+            <div className={styles.nickname}>Shea_Wong<span className={styles.time}>{date}</span></div>
             <div className={styles.from}>来自专辑《女神》</div>
           </div>
           <div className={styles.follow}>+关注</div>
@@ -74,5 +90,7 @@ class ImageCard extends React.Component {
     )
   }
 }
+
+
 
 export default connect()(ImageCard);

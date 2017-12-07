@@ -1,71 +1,127 @@
-.img {
-  width: 80%;
-  height: auto;
-  box-shadow: 0 1px 6px rgba(6,0,0,0.2);
-  border: 6px solid white;
+
+.content {
+  padding-top: 40px;
+  background-color: black;
+}
+.top, .info {
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
-:global {
-  .image-gallery-thumbnail, image-gallery-thumbnail-label {
-    height: 100px;
-    width: auto;
-  }
-}
-
-
-.publisherPart {
-  padding-top: 6px;
-  overflow: auto;
-  background-color: rgba(242, 87, 113, 0.02);
-  padding-bottom: 6px;
-  border: 2px solid #f4f4f4;
-  margin-top: 12px;
-}
-
-.publisherPart .avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: inline;
-  float: left;
-}
-
-.publisherPart .info {
-  display: inline;
-  float: left;
-  margin-left: 10px;
-}
-
-.publisherPart .nickname {
-  font-weight: 700;
-  font-size: 14px;
-  padding-top: 2px;
-  cursor: pointer;
-}
-
-.publisherPart .time, .publisherPart .from {
-  color: #b4b4b4;
-  font-size: 12px;
-}
-
-.publisherPart .time {
-  margin-left: 10px;
-}
-
-.publisherPart .follow {
-  display: inline;
-  float: right;
-  color: #f2cc11;
-  border: 1px solid rgba(242, 204, 17, 0.38);
-  border-radius: 10%;
-  background-color: inherit;
-  font-size: 12px;
-  padding: 4px 10px;
-  margin-top: 8px;
-  cursor: pointer;
-}
-
-.publisherPart .follow:hover {
+.download, .close {
+  font-size: 32px;
   color: white;
-  background-color: #f2cc11;
+  float: right;
+  cursor: pointer;
+}
+
+.close, .download {
+  margin-left: 20px;
+}
+
+.left, .right {
+  font-size: 48px;
+  color: white;
+  cursor: pointer;
+}
+
+.right {
+  float: right;
+}
+
+.picIndex {
+  font-size: 32px;
+  color: white;
+}
+
+.avatar {
+  width: 48px;
+  height:48px;
+  border-radius: 50%;
+  float: left;
+  display: inline;
+}
+
+.username {
+  color: white;
+  font-size: 20px;
+  display: inline;
+  float: left;
+  margin-left: 20px;
+  overflow: auto;
+}
+
+.follow {
+  background-color: inherit;
+  border: 1px solid #F6CFAF;
+  font-size: 12px;
+  color: #F6CFAF;
+  border-radius: 0%;
+  height: 20px;
+  margin-left: 20px;
+}
+
+.follow:hover {
+  background-color: #f6a086;
+  color: white;
+  border: 1px solid #f6a086;
+}
+
+.info {
+  margin-top: 70px;
+  border-bottom: 1px solid white;
+  padding-bottom: 40px;
+  overflow: auto;
+}
+
+.like {
+  font-size: 32px;
+  float: right;
+  cursor: pointer;
+  color: #fb7f82;
+  display: inline;
+  margin-left: 10px;
+}
+
+.time {
+  color: white;
+  display: inline;
+  margin-left: 10px;
+}
+
+
+.time {
+  margin-top: -14px;
+  margin-left: -1px;
+  font-size: 12px;
+}
+
+.tag {
+  margin-left: 25px;
+  color: white;
+  color: #f6a086;
+}
+
+.tags {
+  margin-top: 10px;
+}
+
+.top {
+  overflow: auto;
+}
+
+.descriptionPart {
+  overflow: auto;
+}
+
+.description {
+  color: white;
+  font-size: small;
+  margin-top: 10px;
+  text-indent: 25px;
+}
+.title {
+  color: white;
+  font-size: large;
+  margin-left: 25px;
 }
