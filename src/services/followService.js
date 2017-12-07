@@ -22,7 +22,7 @@ export function getFollows() {
  */
 export function cancelFollow(memberEmails) {
   for(let i=0;i<memberEmails.length;i++){
-    follows = delSingleMember(memberEmails[i],follows);
+    follows = delMember(memberEmails[i],follows);
   }
   return true;
 }
@@ -32,7 +32,7 @@ export function cancelFollow(memberEmails) {
  * @param memberEmail
  * @param groupMember
  */
-function delSingleMember(memberEmail,groupMember) {
+function delMember(memberEmail,groupMember) {
   let delIndex = -1;
   for(let i=0;i<groupMember.length;i++){
     if(groupMember[i].email === memberEmail){

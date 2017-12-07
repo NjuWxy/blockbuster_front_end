@@ -43,7 +43,7 @@ class ImageCard extends React.Component {
     const date = this.props.show.date;
     const description = this.props.show.description;
     const picNum = pictures.length;
-    const cover ="http://localhost:8080"+pictures[0];
+    const cover =pictures[0];
 
     console.log(cover);
     return (

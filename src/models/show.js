@@ -46,7 +46,7 @@ export default {
       const postResult = yield call(showService.postPhoto,fileNames, title, description, tags, albumId, email);
       if(postResult === success){
         yield put(routerRedux.push({
-          pathname: '/show'
+          pathname: '/Show'
         }));
       }else if(postResult === failure ){
         message.error("发布失败")

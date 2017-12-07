@@ -196,6 +196,7 @@ class PostPhotoForm extends React.Component {
         //files, title, description, tags, albumId, email
         const email = window.sessionStorage.getItem("email");
         const albumId = email+this.state.selectValue;
+        console.log(this.state.tags);
         this.props.dispatch({
           type: 'show/postPhoto',
           payload: {

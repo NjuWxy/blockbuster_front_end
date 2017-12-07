@@ -32,6 +32,10 @@ class MainLayout extends React.Component {
       this.props.dispatch({
         type: 'users/signOut',
       })
+    } else if(e.key === 'UserPage'){
+      this.props.dispatch(routerRedux.push({
+        pathname:"/UserPage"
+      }))
     }
   };
   handleSearch = (e) => {
