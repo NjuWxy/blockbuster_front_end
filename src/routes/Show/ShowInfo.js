@@ -6,16 +6,17 @@ import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import { Row, Col, Icon, Button } from 'antd';
 import styles from './ShowInfo.less';
+import { getWinHeight } from '../../utils/tools';
 
 class ShowInfo extends React.Component {
-  getWinHeight = () => {
-    let minHeight = 0;
-    if (window.innerHeight)
-      minHeight = window.innerHeight;
-    else if ((document.body) && (document.body.clientHeight))
-      minHeight = document.body.clientHeight;
-    return minHeight;
-  };
+  // getWinHeight = () => {
+  //   let minHeight = 0;
+  //   if (window.innerHeight)
+  //     minHeight = window.innerHeight;
+  //   else if ((document.body) && (document.body.clientHeight))
+  //     minHeight = document.body.clientHeight;
+  //   return minHeight;
+  // };
 
   returnToHome = () => {
     this.props.dispatch(routerRedux.push({
@@ -24,7 +25,7 @@ class ShowInfo extends React.Component {
   };
 
   render() {
-    const minHeight = this.getWinHeight();
+    const minHeight = getWinHeight();
     const picHeight = minHeight*5/9;
     return(
       <Row className={styles.content} style={{minHeight: minHeight}}>

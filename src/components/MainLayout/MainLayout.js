@@ -140,28 +140,32 @@ class MainLayout extends React.Component {
           </Row>
         </div>
         <Content className={styles.content}>
-          <Row className={styles.row}>
-            <Col span={22} offset={1} className={styles.col}>
-              {this.props.children}
-            </Col>
-            <Col span={1}>
-              <Affix offsetTop={68}>
-                <Dropdown
-                  overlay=
-                    {
-                      <Menu onClick={this.handlePost} selectedKeys={['']}>
-                        <Menu.Item className={styles.layMenu} key="PostPhoto">秀大片儿</Menu.Item>
-                        <Menu.Item className={styles.layMenu} key="PostActivity">发布活动</Menu.Item>
-                      </Menu>
-                    }
-                  placement="bottomRight"
-                >
-                  <Icon className={styles.plus} type="plus-circle"/>
-                </Dropdown>
-              </Affix>
-              <BackTop/>
-            </Col>
-          </Row>
+          {
+            this.props.location.pathname.substring(0,5) === '/User'?
+              this.props.children:
+              <Row className={styles.row}>
+                <Col span={22} offset={1} className={styles.col}>
+                  {this.props.children}
+                </Col>
+                <Col span={1}>
+                  <Affix offsetTop={68}>
+                    <Dropdown
+                      overlay=
+                        {
+                          <Menu onClick={this.handlePost} selectedKeys={['']}>
+                            <Menu.Item className={styles.layMenu} key="PostPhoto">秀大片儿</Menu.Item>
+                            <Menu.Item className={styles.layMenu} key="PostActivity">发布活动</Menu.Item>
+                          </Menu>
+                        }
+                      placement="bottomRight"
+                    >
+                      <Icon className={styles.plus} type="plus-circle"/>
+                    </Dropdown>
+                  </Affix>
+                  <BackTop/>
+                </Col>
+              </Row>
+          }
           <Modal
             visible={this.props.showPostPhoto}
             footer={null}

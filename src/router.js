@@ -6,6 +6,7 @@ import Forum from './routes/Forum/Forum';
 import UserPage from './routes/UserPage/UserPage';
 import IndexPage from './routes/IndexPage';
 import ShowInfo from './routes/Show/ShowInfo';
+import UserFollow from './routes/UserPage/UserFollow/UserFollow';
 
 function RouterConfig({ hashHistory }) {
   return (
@@ -16,6 +17,7 @@ function RouterConfig({ hashHistory }) {
       <Route path="/Activity" component={Activity} />
       <Route path="/Forum" component={Forum} />
       <Route path="/UserPage" component={UserPage} />
+      <Route path="/UserFollow" component={UserFollow} />
     </Router>
   );
 }

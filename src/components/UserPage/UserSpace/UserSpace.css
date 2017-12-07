@@ -1,0 +1,49 @@
+.userSpace {
+  background-color: #f6a086;
+  margin-top: -18px;
+  padding-bottom: 20px;
+}
+
+.editPart {
+  text-align: center;
+}
+
+.edit {
+  margin-left: 20px;
+  cursor: pointer;
+}
+.edit:hover {
+  color: white;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.namePart, .notePart {
+  text-align: center;
+  margin-top: 10px;
+}
+.namePart .username {
+  font-size: large;
+}
+.post {
+  background-color: #f2cc11;
+  font-size: 12px;
+  color: white;
+  border-radius: 0%;
+  margin-top: 10px;
+  width: 120px;
+  height: 30px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.2);
+  border: 1px solid #f2cc11;
+}
+
+.post:hover {
+  background-color: #f2cc11;
+  color: white;
+  border: 1px solid white;
+  box-shadow: none;
+}

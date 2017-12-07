@@ -20,6 +20,7 @@ const app = dva({
 app.model(require('./models/users'));
 app.model(require('./models/show'));
 app.model(require('./models/modalStates'));
+app.model(require('./models/follows'));
 
 // 4. Router
 app.router(require('./router'));
