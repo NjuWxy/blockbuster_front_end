@@ -47,7 +47,7 @@ export function getHotShow(page) {
     body: formData,
   });
   return promise.then((v) => {
-    printInfo(v.data,"postPhoto");
+    printInfo(v.data,"getHotShow");
     return v.data;
   });
 }
