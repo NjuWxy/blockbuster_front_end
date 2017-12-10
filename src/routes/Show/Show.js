@@ -6,7 +6,7 @@ import { connect } from 'dva';
 import { Row, Col, Menu } from 'antd';
 import MainLayout from '../../components/MainLayout/MainLayout';
 import styles from './Show.css';
-import ImageCard from '../../components/Show/ImageCard';
+import ShowCard from '../../components/Show/Card/ShowCard';
 import Nav from '../../components/Show/Nav/Nav';
 
 class Show extends React.Component {
@@ -16,9 +16,9 @@ class Show extends React.Component {
         <Nav location={this.props.location} />
         <div className={styles.imagePart}>
           {
-            this.props.hotShow.map((show, index) => {
+            this.props.show.map((detail, index) => {
               return(
-                <ImageCard show={show} key={index}/>
+                <ShowCard detail={detail} key={index} location={this.props.location} />
               )
             })
           }
@@ -29,8 +29,8 @@ class Show extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { hotShow } = state.show;
-  return { hotShow };
+  const { show } = state.show;
+  return { show };
 }
 
 export default connect(mapStateToProps)(Show);

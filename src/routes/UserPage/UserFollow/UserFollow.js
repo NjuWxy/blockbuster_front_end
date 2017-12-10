@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { connect } from 'dva';
-import { Row, Col, Button, Table } from 'antd';
+import { Row, Col, Button, Table, Avatar } from 'antd';
 import MainLayout from '../../../components/MainLayout/MainLayout';
 import styles from './UserFollow.css';
 import UserSpace from '../../../components/UserPage/UserSpace/UserSpace';
@@ -17,9 +17,9 @@ class UserFollow extends React.Component {
 
   cancelFollow = () => {
     this.props.dispatch({
-      type: 'followManage/cancelFollow',
+      type: 'follow/cancelFollowUsers',
       payload: {
-        memberEmails: this.state.selectedKeys
+        followedEmails: this.state.selectedKeys
       }
     });
   };
@@ -27,7 +27,7 @@ class UserFollow extends React.Component {
     const columns = [{
       title: '头像',
       dataIndex: 'avatarUrl',
-      render: url => <img className={styles.avatar} src={url} />,
+      render: url => <Avatar className={styles.avatar} src={url} />,
     }, {
       title: '昵称',
       dataIndex: 'username',
@@ -38,9 +38,8 @@ class UserFollow extends React.Component {
     const rowSelection = {
       onChange: (selectedRowKeys, selectedRows) => {
         this.setState({
-          selectedKeys: selectedRowKeys
+          selectedKeys: selectedRows.map(row => row.key),
         });
-        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
       }
     };
     return (
@@ -63,8 +62,16 @@ class UserFollow extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { follows } = state.follows;
-  console.log(follows);
+  const { followedUsers } = state.follow;
+  let follows = [];
+  followedUsers.map((user) => {
+    follows.push(
+      {key: user.email,
+        username: user.username,
+        avatarUrl: user.avatar,
+        email: user.email
+      })
+  });
   return { follows };
 }
 

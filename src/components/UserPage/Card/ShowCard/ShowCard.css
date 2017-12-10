@@ -1,0 +1,143 @@
+.card {
+  display: inline-block;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.2);
+  padding: 10px;
+  z-index: -1;
+}
+
+
+
+.custom_image {
+  position: relative;
+  height: 350px;
+}
+.custom_image img {
+  height: 350px;//=======================================
+width: auto;
+}
+
+
+.showDescriptionPart {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgba(0,0,0,0.5);
+  padding: 20px;
+  overflow: auto;
+  display: block;
+  cursor: pointer;
+}
+
+.hideDescriptionPart {
+  display: none;
+  cursor: pointer;
+  overflow: auto;
+}
+
+.showDescriptionPart .title {
+  font-size: 18px;
+  font-weight: 200;
+  color: white;
+  padding-top: 44px;
+  text-align: center;
+}
+
+.showDescriptionPart p {
+  font-size: 12px;
+  font-weight: 200;
+  color: white;
+  text-indent: 25px;
+  margin-left: 10px;
+
+  margin-top: 20px;
+}
+
+.showDescriptionPart .tagPart {
+  margin-top: 24px;
+}
+
+.showDescriptionPart .tagPart .tag {
+  color: #93f2f0;
+}
+
+.showDescriptionPart .tagPart .activityTag {
+  color: #f2e816;
+}
+
+.showDescriptionPart .tagPart .tag:hover,
+.showDescriptionPart .tagPart .activityTag:hover {
+  text-decoration: underline;
+}
+
+.showDescriptionPart .tagPart .tag,
+.showDescriptionPart .tagPart .activityTag {
+  margin-left: 10px;
+}
+
+
+.interactPart {
+  width: 100%;
+  margin-top: 12px;
+  overflow: auto;
+}
+
+.interactPart .icon {
+  font-size: 22px;
+  display: inline;
+  float: left;
+}
+
+.interactPart .comments, .interactPart .forward {
+  width: auto;
+  height: 18px;
+  float: left;
+  cursor: pointer;
+}
+
+.interactPart .comments {
+  margin-left: 20px;
+}
+
+.showDescriptionPart .pictures {
+  position: absolute;
+  width: auto;
+  height: 18px;
+  float: right;
+  bottom: 2px;
+  right: 36px;
+  cursor: pointer;
+}
+
+.showDescriptionPart .picNum {
+  position: absolute;
+  display: inline;
+  font-size: 12px;
+  float: right;
+  margin-left: 6px;
+  bottom: 2px;
+  right: 2px;
+  color: white;
+}
+
+.interactPart .number {
+  display: inline;
+  font-size: 12px;
+  float: right;
+  margin-left: 6px;
+}
+
+.interactPart .likes{
+  width: auto;
+  height: 18px;
+  float: right;
+  cursor: pointer;
+}
+
+.date {
+  display: inline;
+  float: left;
+  color: #b4b4b4;
+}
+

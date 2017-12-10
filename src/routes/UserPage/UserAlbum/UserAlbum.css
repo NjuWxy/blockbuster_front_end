@@ -1,0 +1,30 @@
+
+.content {
+  margin-top: 20px;
+}
+
+.createAlbum {
+  width: 120px;
+  background-color: #f6a086;
+  color: white;
+  border: 1px solid #f6a086;
+  float: right;
+  display: block;
+}
+
+.createAlbum:hover {
+  color: #f6a086;
+  background-color: white;
+  border: 1px solid #f6a086;
+}
+
+.createAlbumInput {
+  width: 120px;
+  display: block;
+  float: right;
+}
+
+
+.buttonPart {
+  margin-top: 40px;
+}

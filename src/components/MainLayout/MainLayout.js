@@ -6,8 +6,8 @@ import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import { Layout, Menu, Icon, Input, Col, Row, Affix, Dropdown, BackTop, Modal,message } from 'antd';
 import styles from './MainLayout.less';
-import PostPhoto from '../../components/PostPhoto/PostPhoto';
 import Login from '../Login/Login';
+import { isLogin, getUsername } from '../../utils/userHelper';
 
 const { Content, Footer } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -25,16 +25,11 @@ class MainLayout extends React.Component {
       //退出
     } else if(e.key === 'Logout'){
       this.props.dispatch({
-        type: 'users/logout',
+        type: 'user/logout',
       });
-      //注销账号
-    } else if(e.key === 'SignOut'){
-      this.props.dispatch({
-        type: 'users/signOut',
-      })
-    } else if(e.key === 'UserPage'){
+    } else if(e.key === 'UserShow'){
       this.props.dispatch(routerRedux.push({
-        pathname:"/UserPage"
+        pathname:"/UserShow"
       }))
     }
   };
@@ -46,40 +41,15 @@ class MainLayout extends React.Component {
    * @param e
    */
   handlePost = (e) => {
-    if(!this.props.isLogin){
+    if(!isLogin()){
       message.error("请先登陆");
     }else {
-      if(e.key === 'PostPhoto'){
-        this.showPostPhoto();
-      }
+      this.props.dispatch(routerRedux.push({
+        pathname: `/${e.key}`
+      }))
     }
   };
-  showPostPhoto = () => {
-    this.prePost();
-    //然后显示发布大片儿界面
-    this.props.dispatch({
-      type: 'modalStates/showPostPhoto',
-      payload: { showPostPhoto: true }
-    })
-  };
 
-  prePost = () => {
-    //首先获得该用户的所有相册
-    this.props.dispatch({
-      type: 'users/getAlbums',
-    });
-    //然后得到热门标签
-    // this.props.dispatch({
-    //   type: 'show/getHotTags',
-    // })
-  };
-
-  hidePostPhoto = () => {
-    this.props.dispatch({
-      type: 'modalStates/showPostPhoto',
-      payload: { showPostPhoto: false }
-    })
-  };
   showLogin = () => {
     this.props.dispatch({
       type: 'modalStates/showLogin',
@@ -127,14 +97,13 @@ class MainLayout extends React.Component {
                 className={styles.menus}
               >
                 {
-                  this.props.isLogin
+                  isLogin()
                     ?
                     <SubMenu
-                      title={<span><Icon type="user" />{this.props.user.username}</span>}
+                      title={<span><Icon type="user" />{ getUsername() }</span>}
                     >
-                      <Menu.Item key="UserPage">主页</Menu.Item>
+                      <Menu.Item key="UserShow">主页</Menu.Item>
                       <Menu.Item key="Logout">退出</Menu.Item>
-                      <Menu.Item key="SignOut">注销</Menu.Item>
                     </SubMenu>
                     :
                     <Menu.Item key="Login"><Icon type="setting"/>登录/注册</Menu.Item>
@@ -145,8 +114,9 @@ class MainLayout extends React.Component {
         </div>
         <Content className={styles.content}>
           {
-            this.props.location.pathname.substring(0,5) === '/User'?
-              this.props.children:
+            this.props.location.pathname.substring(0,5) === '/User'||this.props.location.pathname === '/PostPhoto'?
+              this.props.children
+              :
               <Row className={styles.row}>
                 <Col span={22} offset={1} className={styles.col}>
                   {this.props.children}
@@ -171,15 +141,6 @@ class MainLayout extends React.Component {
               </Row>
           }
           <Modal
-            visible={this.props.showPostPhoto}
-            footer={null}
-            onCancel={this.hidePostPhoto}
-            className={styles.postPhoto}
-            title="秀出你的大片儿"
-          >
-            <PostPhoto />
-          </Modal>
-          <Modal
             visible={this.props.showLogin}
             footer={null}
             onCancel={this.hideLogin}
@@ -198,9 +159,8 @@ class MainLayout extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { isLogin, user } = state.users;
-  const { showLogin, showPostPhoto } = state.modalStates;
-  return { isLogin, user, showLogin, showPostPhoto };
+  const { showLogin } = state.modalStates;
+  return { showLogin };
 }
 
 export default connect(mapStateToProps)(MainLayout);

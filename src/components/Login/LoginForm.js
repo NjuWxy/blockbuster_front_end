@@ -14,7 +14,7 @@ class LoginFormClass extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         this.props.dispatch({
-          type: 'users/login',
+          type: 'user/login',
           payload:{
             email: values.email,
             password: values.password

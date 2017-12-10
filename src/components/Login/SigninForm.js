@@ -17,7 +17,7 @@ class SigninForm extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         this.props.dispatch({
-          type: 'users/signUp',
+          type: 'user/signUp',
           payload:{
             username: values.username,
             email: values.email,

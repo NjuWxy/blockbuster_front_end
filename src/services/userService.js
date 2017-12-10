@@ -2,6 +2,7 @@
  * Created by john on 2017/12/6.
  */
 import request from '../utils/request';
+import { getEmail } from '../utils/userHelper';
 
 /**
  * 注册
@@ -45,58 +46,86 @@ export function login(email,password) {
   });
 }
 
-/**
- * 注销账号
- * @returns {*|Promise.<TResult>}
- */
-export function signOut() {
-  const email = window.sessionStorage.getItem("email");
+export function postAvatar(fileName) {
   const formData = new window.FormData();
-  formData.append("email",email);
-  const promise = request('/api/user/signout',{
+  formData.append('email',getEmail() );
+  formData.append('fileName', fileName);
+  const promise = request('/api/user/postAvatar', {
     method: 'POST',
     body: formData,
   });
   return promise.then((v) => {
-    printInfo(v.data,"signOut");
-    return v.data;
-  })
-}
-
-/**
- * 获得该用户所有的相册
- * @returns {Promise.<TResult>|*}
- */
-export function getAlbums() {
-  const email = window.sessionStorage.getItem("email");
-  const formData = new window.FormData();
-  formData.append("email",email);
-  const promise = request('/api/album/get',{
-    method: 'POST',
-    body: formData,
-  });
-  return promise.then((v) => {
-    printInfo(v.data,"getAlbums");
+    printInfo(v.data,"postAvatar");
     return v.data;
   });
 }
 
-/**
- * 创建新专辑
- * @param album 专辑名称
- * @returns {Promise.<TResult>|*}
- */
-export function createAlbum(album) {
-  const email = window.sessionStorage.getItem("email");
+export function changePassword(oldPassword,newPassword) {
   const formData = new window.FormData();
-  formData.append("email",email);
-  formData.append("album",album);
-  const promise = request('/api/album/create',{
+  formData.append('email', getEmail());
+  formData.append('oldPassword', oldPassword);
+  formData.append('newPassword', newPassword);
+  const promise = request('/api/user/changePassword', {
     method: 'POST',
     body: formData,
   });
   return promise.then((v) => {
-    printInfo(v.data,"createAlbum");
+    printInfo(v.data,"changePassword");
+    return v.data;
+  });
+}
+
+export function followUser(followedEmail) {
+  const formData = new window.FormData();
+  formData.append('email',getEmail() );
+  formData.append('followedEmail', followedEmail);
+  const promise = request('/api/user/followUser', {
+    method: 'POST',
+    body: formData,
+  });
+  return promise.then((v) => {
+    printInfo(v.data,"follow");
+    return v.data;
+  });
+}
+
+export function cancelFollowUser(followedEmail) {
+  const formData = new window.FormData();
+  formData.append('email',getEmail() );
+  formData.append('followedEmail', followedEmail);
+  const promise = request('/api/user/cancelFollowUser', {
+    method: 'POST',
+    body: formData,
+  });
+  return promise.then((v) => {
+    printInfo(v.data,"cancelFollowUser");
+    return v.data;
+  });
+}
+
+export function cancelFollowUsers(followedEmails) {
+  const formData = new window.FormData();
+  formData.append('email',getEmail() );
+  formData.append('followedEmails', followedEmails);
+  const promise = request('/api/user/cancelFollowUsers', {
+    method: 'POST',
+    body: formData,
+  });
+  return promise.then((v) => {
+    printInfo(v.data,"cancelFollowUsers");
+    return v.data;
+  });
+}
+
+export function getFollowedUsers() {
+  const formData = new window.FormData();
+  formData.append('email',getEmail() );
+  const promise = request('/api/user/getFollowedUsers', {
+    method: 'POST',
+    body: formData,
+  });
+  return promise.then((v) => {
+    printInfo(v.data,"getFollowedUsers");
     return v.data;
   });
 }

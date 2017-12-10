@@ -23,7 +23,7 @@ function Nav ({ dispatch, location }){
           mode="horizontal"
           className={styles.category}
         >
-          <Menu.Item key="UserPage" className={styles.menuItem}>我的主页</Menu.Item>
+          <Menu.Item key="UserShow" className={styles.menuItem}>我的主页</Menu.Item>
           <Menu.Item key="UserAlbum" className={styles.menuItem}>我的相册</Menu.Item>
           <Menu.Item key="UserFollow" className={styles.menuItem}>我的关注</Menu.Item>
           <Menu.Item key="UserMessage" className={styles.menuItem}>我的消息</Menu.Item>
