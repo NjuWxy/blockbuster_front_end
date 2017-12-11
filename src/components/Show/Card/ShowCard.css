@@ -95,13 +95,10 @@
 .interactPart .comments, .interactPart .likes, .interactPart .forward {
   width: auto;
   height: 18px;
-  float: left;
+  float: right;
   cursor: pointer;
 }
 
-.interactPart .comments, .interactPart .likes {
-  margin-left: 20px;
-}
 
 .interactPart .pictures {
   width: auto;
@@ -120,8 +117,9 @@
 .interactPart .number {
   display: inline;
   font-size: 12px;
-  float: left;
+  float: right;
   margin-left: 6px;
+  margin-right: 20px;
 }
 
 

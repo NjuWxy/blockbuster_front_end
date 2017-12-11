@@ -51,6 +51,10 @@ export default {
         const loginResult = yield call(userService.login,email,password);
         //登陆成功并且注册成功
         if(loginResult !== failure){
+          yield put({
+            type: 'saveAvatar',
+            payload: { avatar: loginResult.avatar },
+          });
           saveUser(loginResult.email, loginResult.username, loginResult.avatar);
           yield put(routerRedux.goBack());
         }else {
@@ -65,6 +69,10 @@ export default {
       const loginResult = yield call(userService.login, email,password);
       //如果登陆成功
       if(loginResult !== failure){
+        yield put({
+          type: 'saveAvatar',
+          payload: { avatar: loginResult.avatar },
+        });
         saveUser(loginResult.email, loginResult.username, loginResult.avatar);
         yield put(routerRedux.goBack());
       }else {

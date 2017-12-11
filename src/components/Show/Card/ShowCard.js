@@ -68,6 +68,7 @@ class ShowCard extends React.Component {
   handleVisit = () => {
     if(!isLogin()){
       message.error("您还没有登陆哦！");
+      return;
     }
     this.props.dispatch(routerRedux.push({
       pathname: '/VisitedUserShow',
@@ -108,14 +109,10 @@ class ShowCard extends React.Component {
           </div>
         </div>
         <div className={styles.interactPart}>
-          <img className={styles.forward} src={require('../../../assets/icon/forward.svg')} />
-          <div className={styles.number}>3445</div>
-          <img className={styles.comments} src={require('../../../assets/icon/comment.svg')} />
-          <div className={styles.number}>289</div>
-          {likeImg}
-          <div className={styles.number}>{detail.likeNum}</div>
           <div className={styles.picNum}>共{detail.pictures.length}张</div>
           <img className={styles.pictures} src={require('../../../assets/icon/pictures.svg')} />
+          <div className={styles.number}>{detail.likeNum}</div>
+          {likeImg}
         </div>
         <div className={styles.publisherPart}>
           <Avatar className={styles.avatar} src={detail.avatar} />

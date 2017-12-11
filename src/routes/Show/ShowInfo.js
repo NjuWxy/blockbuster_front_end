@@ -94,12 +94,12 @@ class ShowInfo extends React.Component {
         <Col offset={2} span={20}>
           <div className={styles.top}>
             <Avatar className={styles.avatar} src={detail.avatar} />
-            <div className={styles.username}>
+            <div className={styles.user}>
               <div>
                 <span className={usernameStyle} onClick={this.handleVisit}>{detail.userName}</span>
                 {
                   showFollowButton(detail.email) ?
-                    <Button className={styles.follow} onClick={this.handleFollow}>{followText}</Button>
+                    <span><Button className={styles.follow} onClick={this.handleFollow}>{followText}</Button></span>
                     :
                     null
                 }
