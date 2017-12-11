@@ -27,7 +27,7 @@ class UserFollow extends React.Component {
     const columns = [{
       title: '头像',
       dataIndex: 'avatarUrl',
-      render: url => <Avatar className={styles.avatar} src={url} />,
+      render: url => <img className={styles.avatar} src={url} />,
     }, {
       title: '昵称',
       dataIndex: 'username',
@@ -44,7 +44,7 @@ class UserFollow extends React.Component {
     };
     return (
       <MainLayout location={this.props.location}>
-        <UserSpace />
+        <UserSpace location={this.props.location} />
         <Nav location={this.props.location}/>
         <Row className={styles.content}>
           <Col offset={4} span={16}>

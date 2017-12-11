@@ -185,9 +185,10 @@ class PostPhotoForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
-        //files, title, description, tags, albumTitle, email
-        console.log(this.state.tags);
+        if(this.state.fileList.length === 0){
+          message.error("不要闹，您没有上传图片>,<");
+          return;
+        }
         this.props.dispatch({
           type: 'show/postPhoto',
           payload: {

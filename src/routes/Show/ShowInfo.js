@@ -7,7 +7,7 @@ import { routerRedux } from 'dva/router';
 import { Row, Col, Icon, Button, message, Avatar } from 'antd';
 import styles from './ShowInfo.less';
 import { getWinHeight } from '../../utils/tools';
-import { showFollowButton, isLogin } from '../../utils/userHelper';
+import { showFollowButton, isLogin, isSelf } from '../../utils/userHelper';
 
 class ShowInfo extends React.Component {
 
@@ -56,6 +56,15 @@ class ShowInfo extends React.Component {
     }
   };
 
+  handleVisit = () => {
+    this.props.dispatch(routerRedux.push({
+      pathname: '/VisitedUserShow',
+      query:{
+        email: this.props.detail.email,
+      }
+    }))
+  };
+
   handleFollow = () => {
     if(!isLogin()){
       message.error("您还没有登陆哦！");
@@ -79,6 +88,7 @@ class ShowInfo extends React.Component {
     let followText = detail.followed?'取消关注':'关注';
     let likeType = detail.isLiked?'heart':'heart-o';
     const presentPicture = detail.pictures[this.state.pictureIndex];
+    let usernameStyle = isSelf(detail.email)?styles.username:styles.visitedName;
     return(
       <Row className={styles.content} style={{minHeight: minHeight}}>
         <Col offset={2} span={20}>
@@ -86,7 +96,7 @@ class ShowInfo extends React.Component {
             <Avatar className={styles.avatar} src={detail.avatar} />
             <div className={styles.username}>
               <div>
-                {detail.userName}
+                <span className={usernameStyle} onClick={this.handleVisit}>{detail.userName}</span>
                 {
                   showFollowButton(detail.email) ?
                     <Button className={styles.follow} onClick={this.handleFollow}>{followText}</Button>

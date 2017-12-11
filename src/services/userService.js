@@ -75,6 +75,37 @@ export function changePassword(oldPassword,newPassword) {
   });
 }
 
+export function getUserInfo(email) {
+  const formData = new window.FormData();
+  formData.append('email',email);
+  const promise = request('/api/user/getUser', {
+    method: 'POST',
+    body: formData,
+  });
+  return promise.then((v) => {
+    printInfo(v.data,"getUser");
+    return v.data;
+  });
+}
+
+/**
+ * 判断是否已经关注
+ * @param followedEmail 被关注的人的email
+ */
+export function getIsFollowed(followedEmail) {
+  const formData = new window.FormData();
+  formData.append('followerEmail',getEmail() );
+  formData.append('followedEmail', followedEmail);
+  const promise = request('/api/user/isFollowed', {
+    method: 'POST',
+    body: formData,
+  });
+  return promise.then((v) => {
+    printInfo(v.data,"getIsFollowed");
+    return v.data;
+  });
+}
+
 export function followUser(followedEmail) {
   const formData = new window.FormData();
   formData.append('email',getEmail() );
@@ -129,6 +160,34 @@ export function getFollowedUsers() {
     return v.data;
   });
 }
+
+export function getMessage() {
+  const formData = new window.FormData();
+  formData.append('email',getEmail() );
+  const promise = request('/api/user/message', {
+    method: 'POST',
+    body: formData,
+  });
+  return promise.then((v) => {
+    printInfo(v.data,"message");
+    return v.data;
+  });
+}
+
+// export function getHasNewMessage() {
+//   const formData = new window.FormData();
+//   formData.append('email',getEmail() );
+//   const promise = request('/api/user/hasNewMessage', {
+//     method: 'POST',
+//     body: formData,
+//   });
+//   return promise.then((v) => {
+//     printInfo(v.data,"message");
+//     return v.data;
+//   });
+// }
+
+
 
 function printInfo(info,func) {
   console.log("userService/"+func+": "+info);

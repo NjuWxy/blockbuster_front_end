@@ -10,18 +10,46 @@ import ShowCard from '../../components/Show/Card/ShowCard';
 import Nav from '../../components/Show/Nav/Nav';
 
 class Show extends React.Component {
+
   render() {
+    let { show, location } = this.props;
+    let column1 = [];
+    let column2 = [];
+    let column3 = [];
+    let column4 = [];
+    for(let i=0;i<show.length;i++){
+      if(i%4 === 0){
+        column1.push(<ShowCard detail={show[i]} key={i} location={location} />);
+      }else if(i%4 === 1){
+        column2.push(<ShowCard detail={show[i]} key={i} location={location} />);
+      }else if(i%4 === 2){
+        column3.push(<ShowCard detail={show[i]} key={i} location={location} />);
+      }else {
+        column4.push(<ShowCard detail={show[i]} key={i} location={location} />);
+      }
+    }
     return (
       <MainLayout location={this.props.location}>
         <Nav location={this.props.location} />
         <div className={styles.imagePart}>
-          {
-            this.props.show.map((detail, index) => {
-              return(
-                <ShowCard detail={detail} key={index} location={this.props.location} />
-              )
-            })
-          }
+          <Row type="flex" justify="space-between" align="top">
+            <Col span={24}>
+              <Row type="flex" justify="space-between" align="top" >
+                <Col span={6}>
+                  {column1}
+                </Col>
+                <Col span={6}>
+                  {column2}
+                </Col>
+                <Col span={6}>
+                  {column3}
+                </Col>
+                <Col span={6}>
+                  {column4}
+                </Col>
+              </Row>
+            </Col>
+          </Row>
         </div>
       </MainLayout>
     )

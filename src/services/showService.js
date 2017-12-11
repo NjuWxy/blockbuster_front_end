@@ -68,9 +68,10 @@ export function getCareShows() {
   });
 }
 
-export function getMyShow() {
+export function getMyShow(email=getEmail()) {
   const formData = new window.FormData();
-  formData.append("email",getEmail());
+  formData.append("email",email);
+  formData.append("visitorEmail",getEmail());
   const promise = request('/api/show/myShow',{
     method: 'POST',
     body: formData,

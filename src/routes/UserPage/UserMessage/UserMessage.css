@@ -1,0 +1,29 @@
+.cancelFollow {
+  width: 80px;
+  background-color: #f6a086;
+  color: white;
+  border: 1px solid #f6a086;
+  float: right;
+  display: block;
+}
+
+.cancelFollow:hover {
+  color: #f6a086;
+  background-color: white;
+  border: 1px solid #f6a086;
+}
+
+.content {
+  margin-top: 60px;
+}
+
+.tablePart {
+  margin-top: 20px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline;
+}

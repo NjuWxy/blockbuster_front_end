@@ -1,0 +1,31 @@
+.message {
+  padding: 10px;
+  border-bottom: 2px solid #f4f4f4;
+  overflow: auto;
+}
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline;
+  float: left;
+}
+
+.messageMaker {
+  color: #398e92;
+  margin-left: 20px;
+  margin-right: 10px;
+  margin-top: 40px;
+  display: inline;
+}
+
+.messageMaker:hover {
+  text-decoration: underline;
+}
+.text,.date {
+  display: inline;
+}
+
+.date {
+  float: right;
+}

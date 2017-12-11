@@ -42,13 +42,21 @@
   display: inline;
 }
 
-.username {
+.username, .visitedName {
   color: white;
   font-size: 20px;
   display: inline;
   float: left;
   margin-left: 20px;
   overflow: auto;
+}
+.visitedName{
+  cursor: pointer;
+  color: #398e92;
+}
+
+.visitedName:hover{
+  text-decoration: underline;
 }
 
 .follow {

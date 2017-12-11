@@ -55,9 +55,25 @@ class UserAlbum extends React.Component {
 
 
   render() {
+    let { albums, location } = this.props;
+    let column1 = [];
+    let column2 = [];
+    let column3 = [];
+    let column4 = [];
+    for(let i=0;i<albums.length;i++){
+      if(i%4 === 0){
+        column1.push(<AlbumCard detail={albums[i]} key={i} location={location} />);
+      }else if(i%4 === 1){
+        column2.push(<AlbumCard detail={albums[i]} key={i} location={location} />);
+      }else if(i%4 === 2){
+        column3.push(<AlbumCard detail={albums[i]} key={i} location={location} />);
+      }else {
+        column4.push(<AlbumCard detail={albums[i]} key={i} location={location} />);
+      }
+    }
     return (
       <MainLayout location={this.props.location}>
-        <UserSpace />
+        <UserSpace location={this.props.location} />
         <Nav location={this.props.location}/>
         <Row className={styles.buttonPart}>
           <Col offset={2} span={20}>
@@ -77,13 +93,24 @@ class UserAlbum extends React.Component {
         </Row>
         <Row className={styles.content}>
           <Col offset={2} span={20}>
-            {
-              this.props.albums.map((detail, index) => {
-                return(
-                  <AlbumCard detail={detail} key={index} location={this.props.location} />
-                )
-              })
-            }
+            <Row type="flex" justify="space-between" align="top">
+              <Col span={24}>
+                <Row type="flex" justify="space-between" align="top" >
+                  <Col span={6}>
+                    {column1}
+                  </Col>
+                  <Col span={6}>
+                    {column2}
+                  </Col>
+                  <Col span={6}>
+                    {column3}
+                  </Col>
+                  <Col span={6}>
+                    {column4}
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </MainLayout>

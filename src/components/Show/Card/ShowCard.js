@@ -6,7 +6,7 @@ import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import { message, Avatar, Row, Col, Button } from 'antd';
 import styles from './ShowCard.css';
-import { isLogin, showFollowButton } from '../../../utils/userHelper';
+import { isLogin, showFollowButton, isSelf } from '../../../utils/userHelper';
 
 
 class ShowCard extends React.Component {
@@ -65,6 +65,18 @@ class ShowCard extends React.Component {
     }
   };
 
+  handleVisit = () => {
+    if(!isLogin()){
+      message.error("您还没有登陆哦！");
+    }
+    this.props.dispatch(routerRedux.push({
+      pathname: '/VisitedUserShow',
+      query:{
+        email: this.props.detail.email,
+      }
+    }))
+  };
+
   render()  {
     const detail = this.props.detail;
     let followText = detail.followed?'取消关注':'关注';
@@ -72,6 +84,7 @@ class ShowCard extends React.Component {
       <img className={styles.likes} src={require('../../../assets/icon/cancelLike.svg')} onClick={this.handleLike}/>
       :
       <img className={styles.likes} src={require('../../../assets/icon/like.svg')} onClick={this.handleLike}/>;
+    let usernameStyle = isSelf(detail.email)?styles.nickname:styles.visitedName;
     return (
       <div className={styles.card}>
         <div
@@ -107,8 +120,8 @@ class ShowCard extends React.Component {
         <div className={styles.publisherPart}>
           <Avatar className={styles.avatar} src={detail.avatar} />
           <div className={styles.info}>
-            <div className={styles.nickname}>
-              {detail.userName}
+            <div>
+              <span className={usernameStyle} onClick={this.handleVisit}>{detail.userName}</span>
               {
                 detail.albumName === ''?
                   null

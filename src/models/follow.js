@@ -41,8 +41,8 @@ export default {
       }else {
         yield put(routerRedux.push({
           pathname,
-          query: pathname==='/ShowInfo'?{sid}:{}
-        }))
+          query: pathname==='/ShowInfo'?{sid}:pathname==='/VisitedUserShow'?{email: followedEmail}:{}
+        }));
       }
     },
     *cancelFollowUser({ payload:{followedEmail, pathname, sid}}, {call,put}) {
@@ -52,8 +52,8 @@ export default {
       }else {
         yield put(routerRedux.push({
           pathname,
-          query: pathname==='/ShowInfo'?{sid}:{}
-        }))
+          query: pathname==='/ShowInfo'?{sid}:pathname==='/VisitedUserShow'?{email: followedEmail}:{}
+        }));
       }
     },
     *cancelFollowUsers({ payload:{followedEmails}}, {call,put}) {
@@ -63,7 +63,7 @@ export default {
       }else {
         yield put(routerRedux.push({
           pathname: '/UserFollow',
-        }))
+        }));
       }
     },
   },

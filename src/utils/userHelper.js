@@ -32,6 +32,10 @@ export function showFollowButton(email) {
   return window.sessionStorage.getItem("email") !== email;
 }
 
+export function isSelf(email) {
+  return window.sessionStorage.getItem("email") === email;
+}
+
 export function isLogin() {
   return window.sessionStorage.getItem("email") !== null;
 }

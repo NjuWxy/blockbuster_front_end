@@ -4,9 +4,8 @@
 import React from 'react';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
-import { Layout, Menu, Icon, Input, Col, Row, Affix, Dropdown, BackTop, Modal,message } from 'antd';
+import { Layout, Menu, Icon, Input, Col, Row, Affix, Dropdown, BackTop, Modal,message,Badge } from 'antd';
 import styles from './MainLayout.less';
-import Login from '../Login/Login';
 import { isLogin, getUsername } from '../../utils/userHelper';
 
 const { Content, Footer } = Layout;
@@ -20,21 +19,22 @@ class MainLayout extends React.Component {
   };
   handleUserAffair = (e) => {
     //登陆／注册
-    if(e.key === 'Login'){
-      this.showLogin();
-      //退出
-    } else if(e.key === 'Logout'){
+   if(e.key === 'Logout'){
       this.props.dispatch({
         type: 'user/logout',
       });
-    } else if(e.key === 'UserShow'){
+    } else {
       this.props.dispatch(routerRedux.push({
-        pathname:"/UserShow"
+        pathname:`/${e.key}`
       }))
     }
   };
   handleSearch = (e) => {
-    console.log(e.target.value);
+    const key = e.target.value;
+    this.props.dispatch(routerRedux.push({
+      pathname: '/SearchShow',
+      query: { key }
+    }))
   };
   /**
    * 点击发布（发布活动或发布大片儿），需要首先判断用户是否已登陆
@@ -50,18 +50,6 @@ class MainLayout extends React.Component {
     }
   };
 
-  showLogin = () => {
-    this.props.dispatch({
-      type: 'modalStates/showLogin',
-      payload: { showLogin: true }
-    })
-  };
-  hideLogin = () => {
-    this.props.dispatch({
-      type: 'modalStates/showLogin',
-      payload: { showLogin: false }
-    })
-  };
   render(){
     return (
       <Layout className={styles.layout}>
@@ -102,8 +90,9 @@ class MainLayout extends React.Component {
                     <SubMenu
                       title={<span><Icon type="user" />{ getUsername() }</span>}
                     >
-                      <Menu.Item key="UserShow">主页</Menu.Item>
-                      <Menu.Item key="Logout">退出</Menu.Item>
+                      <Menu.Item key="UserShow">个人主页</Menu.Item>
+                      <Menu.Item key="ChangePassword">修改密码</Menu.Item>
+                      <Menu.Item key="Logout">退出登陆</Menu.Item>
                     </SubMenu>
                     :
                     <Menu.Item key="Login"><Icon type="setting"/>登录/注册</Menu.Item>
@@ -114,7 +103,7 @@ class MainLayout extends React.Component {
         </div>
         <Content className={styles.content}>
           {
-            this.props.location.pathname.substring(0,5) === '/User'||this.props.location.pathname === '/PostPhoto'?
+            this.props.location.pathname.substring(0,5) === '/User'||this.props.location.pathname === '/PostPhoto'|| this.props.location.pathname ==='/VisitedUserShow'?
               this.props.children
               :
               <Row className={styles.row}>
@@ -140,15 +129,6 @@ class MainLayout extends React.Component {
                 </Col>
               </Row>
           }
-          <Modal
-            visible={this.props.showLogin}
-            footer={null}
-            onCancel={this.hideLogin}
-            className={styles.login}
-            title="登录/注册"
-          >
-            <Login />
-          </Modal>
         </Content>
         <Footer className={styles.footer}>
           Blockbuster ©2017 Created by Shea Wong

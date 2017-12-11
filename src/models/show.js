@@ -10,12 +10,22 @@ import { success, failure } from '../utils/constants';
  * 点赞和取消点赞、发布大片儿
  */
 import * as showService from '../services/showService';
+import * as userService from '../services/userService';
 
 export default {
 
   namespace: 'show',
 
   state: {
+    /**
+     * 被访问的user的信息
+     */
+    visitedUser: {
+      email: '',
+      username: '',
+      avatar:'',
+    },
+    isFollowed: false,
     hotTags: [],
     show: [],
     detail: {
@@ -61,6 +71,16 @@ export default {
           dispatch({
             type: 'getMyShow',
           })
+        }else if( pathname === '/SearchShow') {
+          dispatch({
+            type: 'searchShow',
+            payload: { key: query.key },
+          });
+        }else if( pathname === '/VisitedUserShow') {
+          dispatch({
+            type: 'getVisitedUserShow',
+            payload: { email: query.email },
+          })
         }
       });
     },
@@ -103,12 +123,37 @@ export default {
       })
     },
 
+    /**
+     *用户访问自己的主页
+     */
     * getMyShow({ payload },{ call, put }){
       const show = yield call(showService.getMyShow);
       yield put({
         type: 'saveShow',
         payload:{ show },
       })
+    },
+
+    /**
+     *用户访问别人的主页
+     * email: 被访问者的email
+     */
+    * getVisitedUserShow({ payload: { email }}, { call, put }){
+      const show = yield call(showService.getMyShow, email);
+      const visitedUser = yield call(userService.getUserInfo, email);
+      const isFollowed = yield call(userService.getIsFollowed,email);
+      yield put({
+        type: 'saveShow',
+        payload:{ show },
+      });
+      yield put({
+        type: 'saveVisitedUser',
+        payload:{ visitedUser },
+      });
+      yield put({
+        type: 'saveIsFollowed',
+        payload:{ isFollowed },
+      });
     },
 
     * searchShow({ payload: { key } },{ call, put }){
@@ -161,6 +206,12 @@ export default {
     },
     saveDetail(state, { payload: { detail }}) {
       return { ...state, detail };
+    },
+    saveVisitedUser(state, { payload: { visitedUser}}) {
+      return{ ...state, visitedUser};
+    },
+    saveIsFollowed(state, { payload: { isFollowed}}) {
+      return{ ...state, isFollowed};
     }
   },
 

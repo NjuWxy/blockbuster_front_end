@@ -1,3 +1,8 @@
+
+.content {
+  margin-top: 40px;
+}
+
 .userSpace {
   background-color: #f6a086;
   margin-top: -18px;
@@ -20,7 +25,6 @@
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  cursor: pointer;
 }
 
 .namePart, .notePart {
@@ -30,7 +34,7 @@
 .namePart .username {
   font-size: large;
 }
-.post {
+.follow {
   background-color: #f2cc11;
   font-size: 12px;
   color: white;
@@ -42,40 +46,11 @@
   border: 1px solid #f2cc11;
 }
 
-.post:hover {
+.follow:hover, .follow:focus {
   background-color: #f2cc11;
   color: white;
   border: none;
   box-shadow: none;
-}
-
-.content {
-  width: 360px;
-  padding: 48px 50px 20px 50px;
-  margin-bottom: 60px;
-  text-align: center;
-  float: right;
-  min-height: 500px;
-}
-.header {
-  text-align: center;
-  width: 100%;
-  margin-top: 10px;
-  margin-bottom: 40px;
-}
-.button {
-  margin-top: 20px;
-  height: 40px;
-  background-color: #ff5a5f;
-  border: 1px solid #ff5a5f;
-  width: 260px;
-  margin-bottom: 30px;
-}
-
-.button:hover {
-  background-color: white;
-  border: 1px solid #ff5a5f;
-  color: #ff5a5f;
 }
 
 .upload {

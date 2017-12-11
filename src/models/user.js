@@ -14,13 +14,17 @@ import { saveUser, removeUser, saveAvatar } from '../utils/userHelper';
 export default {
   namespace: 'user',
   state: {
+    //本用户的头像
     albums: [],
+    avatar: window.sessionStorage.getItem("avatar"),
     albumDetail: {
       aid: '',
       title: '',
       email: '',
       photos: [],
-    }
+    },
+    // hasNewMessage: false,
+    messages: [],
   },
 
   subscriptions: {
@@ -29,6 +33,10 @@ export default {
         if(pathname === '/UserAlbum' || pathname === '/PostPhoto') {
           dispatch({
             type: 'getAlbums',
+          })
+        }else if(pathname === '/UserMessage'){
+          dispatch({
+            type: 'getMessage',
           })
         }
       });
@@ -44,9 +52,7 @@ export default {
         //登陆成功并且注册成功
         if(loginResult !== failure){
           saveUser(loginResult.email, loginResult.username, loginResult.avatar);
-          yield put(routerRedux.push({
-            pathname: '/Show',
-          }))
+          yield put(routerRedux.goBack());
         }else {
           message.error("登陆失败");
         }
@@ -60,9 +66,7 @@ export default {
       //如果登陆成功
       if(loginResult !== failure){
         saveUser(loginResult.email, loginResult.username, loginResult.avatar);
-        yield put(routerRedux.push({
-          pathname: '/Show',
-        }))
+        yield put(routerRedux.goBack());
       }else {
         message.error("登陆失败，请检查用户名或者密码是否正确");
       }
@@ -79,26 +83,36 @@ export default {
       const result = yield call(userService.changePassword,oldPassword,newPassword);
       if(result === success ){
         message.success("修改密码成功");
-        yield put(routerRedux.push({
-          pathname: '/UserShow'
-        }));
+        yield put(routerRedux.goBack());
       }else {
         message.error("修改密码失败，请检查原密码是否正确");
       }
     },
 
-    * postAvatar({ payload: { fileName }}, { call, put }) {
+    * postAvatar({ payload: { fileName, pathname }}, { call, put }) {
       const result = yield call(userService.postAvatar,fileName);
       if(result === failure ){
         message.error("更新头像失败");
       }else {
         message.success("更新头像成功");
         saveAvatar(result);
+        yield put({
+          type: 'saveAvatar',
+          payload: { avatar: result },
+        });
         yield put(routerRedux.push({
-          pathname: '/UserShow'
+          pathname
         }));
       }
     },
+
+    // *getUserInfo({ payload: { email }},{ call, put }){
+    //   const result = yield call(userService.getUserInfo,email);
+    //   yield put({
+    //     type: 'saveUserInfo',
+    //     payload: { userInfo: result },
+    //   })
+    // },
 
     * getAlbums({payload},{call,put}){
       const albums = yield call(albumService.getAlbums);
@@ -139,7 +153,21 @@ export default {
           payload: { albumDetail:detail },
         }
       );
-    }
+    },
+    * getMessage({ payload }, {call, put}) {
+      const messages = yield call(userService.getMessage);
+      yield put({
+        type: 'saveMessage',
+        payload: { messages }
+      })
+    },
+    // * getHasNewMessage({ payload }, {call, put}) {
+    //   const hasNewMessage = yield call(userService.getHasNewMessage);
+    //   yield put({
+    //     type: 'saveHasNewMessage',
+    //     payload: { hasNewMessage }
+    //   })
+    // }
 
   },
 
@@ -149,6 +177,16 @@ export default {
     },
     saveDetail(state, { payload: { albumDetail }}) {
       return{ ...state, albumDetail };
-    }
+    },
+    saveAvatar(state, { payload: { avatar }}) {
+      return{ ...state, avatar };
+    },
+    saveMessage(state, { payload: { messages }}) {
+      return{ ...state, messages };
+    },
+    // saveHasNewMessage(state, { payload: { hasNewMessage }}) {
+    //   return{ ...state, hasNewMessage };
+    // },
+
   }
 };
