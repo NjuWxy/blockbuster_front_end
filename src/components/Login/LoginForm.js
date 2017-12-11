@@ -35,7 +35,9 @@ class LoginFormClass extends React.Component {
   };
 
   handleCancel = () => {
-    this.props.dispatch(routerRedux.goBack());
+    this.props.dispatch(routerRedux.push({
+      pathname: '/Show'
+    }));
   };
 
   render() {

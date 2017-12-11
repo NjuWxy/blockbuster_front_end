@@ -13,11 +13,6 @@ const SubMenu = Menu.SubMenu;
 
 class MainLayout extends React.Component {
   handleClick = (e) => {
-    this.props.dispatch(routerRedux.push({
-      pathname: `/${e.key}`
-    }));
-  };
-  handleUserAffair = (e) => {
     //登陆／注册
    if(e.key === 'Logout'){
       this.props.dispatch({
@@ -58,7 +53,14 @@ class MainLayout extends React.Component {
             <Col offset={1} span={2}>
               <div className={styles.logo}>大片儿</div>
             </Col>
-            <Col offset={1} span={12}>
+            <Col offset={12} span={4}>
+              <Input
+                placeholder="输入关键字搜索大片儿"
+                className={styles.search}
+                onPressEnter={this.handleSearch}
+              />
+            </Col>
+            <Col span={4}>
               <Menu
                 onClick={this.handleClick}
                 selectedKeys={['']}
@@ -66,24 +68,6 @@ class MainLayout extends React.Component {
                 className={styles.menus}
               >
                 <Menu.Item key="Show"><Icon type="camera-o" />大片儿秀</Menu.Item>
-                <Menu.Item key="Activity"><Icon type="notification" />活动</Menu.Item>
-                <Menu.Item key="Forum"><Icon type="message" />论坛</Menu.Item>
-              </Menu>
-            </Col>
-            <Col span={4}>
-              <Input
-                placeholder="输入关键字搜索大片儿"
-                className={styles.search}
-                onPressEnter={this.handleSearch}
-              />
-            </Col>
-            <Col offset={1} span={2}>
-              <Menu
-                onClick={this.handleUserAffair}
-                selectedKeys={['']}
-                mode="horizontal"
-                className={styles.menus}
-              >
                 {
                   isLogin()
                     ?

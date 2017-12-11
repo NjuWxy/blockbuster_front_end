@@ -81,7 +81,7 @@ export default {
             type: 'getVisitedUserShow',
             payload: { email: query.email },
           })
-        }else if( pathname === '/PostPhoto') {
+        }else if( pathname === '/') {
           dispatch({
             type: 'getHotTags',
           })

@@ -79,7 +79,9 @@ export default {
           payload: { avatar: loginResult.avatar },
         });
         saveUser(loginResult.email, loginResult.username, loginResult.avatar);
-        yield put(routerRedux.goBack());
+        yield put(routerRedux.push({
+          pathname: '/Show'
+        }));
       }else {
         message.error("登陆失败，请检查用户名或者密码是否正确");
       }

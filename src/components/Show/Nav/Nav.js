@@ -2,14 +2,18 @@
  * Created by john on 2017/12/6.
  */
 import React from 'react';
-import { Row, Col, Menu } from 'antd';
+import { Row, Col, Menu, message } from 'antd';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import styles from './Nav.css';
+import { isLogin } from '../../../utils/userHelper';
 
 function Nav ({ dispatch, location }){
   function handleClick(e){
-    console.log(e.key);
+    if(!isLogin()){
+      message.error("你还没有登陆哦");
+      return;
+    }
     dispatch(routerRedux.push({
       pathname: `/${e.key}`
     }));
@@ -31,9 +35,6 @@ function Nav ({ dispatch, location }){
   )
 }
 
-function mapStateToProps(state) {
-
-}
 
 export default connect()(Nav);
 
