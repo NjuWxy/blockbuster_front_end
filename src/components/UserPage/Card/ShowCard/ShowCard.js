@@ -49,6 +49,13 @@ class ShowCard extends React.Component {
     }
   };
 
+  handleSearch = (tag) => {
+    this.props.dispatch(routerRedux.push({
+      pathname: '/SearchShow',
+      query: { key: tag }
+    }))
+  };
+
   render()  {
     const detail = this.props.detail;
     let likeImg = detail.isLiked?
@@ -63,20 +70,20 @@ class ShowCard extends React.Component {
           onMouseLeave={this.hideDescription}
         >
           <img alt="example" src={detail.pictures[0]} />
-          <div className={this.state.descriptionPartState}  onClick={this.toShowInfo}>
+          <div className={this.state.descriptionPartState}>
             <div className={styles.title}>{detail.title}</div>
             <p>{detail.description}</p>
             <div className={styles.tagPart}>
               {
                 detail.tags.map((tag,index) => {
                   return(
-                    <span className={styles.tag} key={index}>#{tag}</span>
+                    <span className={styles.tag} key={index} onClick={()=>{this.handleSearch(tag)}}>#{tag}</span>
                   )
                 })
               }
             </div>
             <div className={styles.picNum}>共{detail.pictures.length}张</div>
-            <img className={styles.pictures} src={require('../../../../assets/icon/pictures.svg')} />
+            <img className={styles.pictures} src={require('../../../../assets/icon/pictures.svg')} onClick={this.toShowInfo} />
           </div>
         </div>
         <div className={styles.interactPart}>

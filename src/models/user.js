@@ -17,7 +17,7 @@ export default {
     //本用户的头像
     albums: [],
     avatar: window.sessionStorage.getItem("avatar"),
-    albumDetail: {
+    detail: {
       aid: '',
       title: '',
       email: '',
@@ -29,7 +29,7 @@ export default {
 
   subscriptions: {
     setup({ dispatch, history }) {
-      return history.listen(({ pathname })=> {
+      return history.listen(({ pathname, query })=> {
         if(pathname === '/UserAlbum' || pathname === '/PostPhoto') {
           dispatch({
             type: 'getAlbums',
@@ -37,6 +37,11 @@ export default {
         }else if(pathname === '/UserMessage'){
           dispatch({
             type: 'getMessage',
+          })
+        }else if( pathname === '/AlbumDetail') {
+          dispatch({
+            type: 'getDetail',
+            payload: { aid: query.aid },
           })
         }
       });
@@ -153,12 +158,12 @@ export default {
         }))
       }
     },
-    * getAlbumDetail({ payload: { aid }}, {call,put}) {
+    * getDetail({ payload: { aid }}, {call,put}) {
       const detail = yield call(albumService.getAlbumDetail, aid);
       yield put(
         {
           type: 'saveDetail',
-          payload: { albumDetail:detail },
+          payload: { detail },
         }
       );
     },
@@ -183,8 +188,8 @@ export default {
     saveAlbums(state, { payload: { albums }}){
       return { ...state, albums};
     },
-    saveDetail(state, { payload: { albumDetail }}) {
-      return{ ...state, albumDetail };
+    saveDetail(state, { payload: { detail }}) {
+      return{ ...state, detail };
     },
     saveAvatar(state, { payload: { avatar }}) {
       return{ ...state, avatar };

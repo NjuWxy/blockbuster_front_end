@@ -30,12 +30,10 @@
   overflow: auto;
 
   display: block;
-  cursor: pointer;
 }
 
 .hideDescriptionPart {
   display: none;
-  cursor: pointer;
   overflow: auto;
 }
 
@@ -43,7 +41,7 @@
   font-size: 18px;
   font-weight: 200;
   color: white;
-  padding-top: 44px;
+  padding-top: 24px;
   text-align: center;
 }
 
@@ -52,17 +50,17 @@
   font-weight: 200;
   color: white;
   text-indent: 25px;
-  margin-left: 10px;
-
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .showDescriptionPart .tagPart {
-  margin-top: 24px;
+  margin-top: 14px;
+  margin-left: 15px;
 }
 
 .showDescriptionPart .tagPart .tag {
   color: #93f2f0;
+  cursor: pointer;
 }
 
 .showDescriptionPart .tagPart .activityTag {

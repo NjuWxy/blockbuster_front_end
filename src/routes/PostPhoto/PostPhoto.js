@@ -52,7 +52,7 @@ class PostPhotoForm extends React.Component {
      * 用户上传的图片文件列表 todo
      */
     fileList: [],
-  }
+  };
 
   /**
    * 上传图片、删除图片时改变state中的fileList
@@ -188,7 +188,11 @@ class PostPhotoForm extends React.Component {
         if(this.state.fileList.length === 0){
           message.error("不要闹，您没有上传图片>,<");
           return;
+        }else if(values.description.length > 70){
+          message.error("描述不要多于70个字");
+          return;
         }
+        console.log(this.state.fileList);
         this.props.dispatch({
           type: 'show/postPhoto',
           payload: {
@@ -240,6 +244,7 @@ class PostPhotoForm extends React.Component {
      * @type {[*]}
      */
     const hotTags = this.props.hotTags;
+    console.log(hotTags);
 
     return (
       <Row style={{ backgroundColor: '#f4f4f4'}} >
@@ -310,6 +315,7 @@ class PostPhotoForm extends React.Component {
                           onChange={this.handleInputChange}
                           onBlur={this.handleInputConfirm}
                           onPressEnter={this.handleInputConfirm}
+                          placeholder="不多于70个字的描述..."
                         />
                       )}
                       {!inputVisible &&(tags.length>=6?null: <Button size="small" type="dashed" onClick={this.showInput}>+ 标签</Button>)}

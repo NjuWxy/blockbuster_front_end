@@ -4,7 +4,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
-import { Icon } from 'antd';
+import { Icon, message } from 'antd';
 import styles from './AlbumCard.css';
 import { isLogin } from '../../../../utils/userHelper';
 
@@ -24,6 +24,10 @@ class ShowCard extends React.Component {
     });
   };
   toAlbumDetail = () => {
+    if(this.props.detail.photos.length===0){
+      message.info("该相册没有内容");
+      return;
+    }
     this.props.dispatch(routerRedux.push({
       pathname: '/AlbumDetail',
       query:  {
@@ -56,9 +60,9 @@ class ShowCard extends React.Component {
               :
               <img className={styles.img} src={detail.photos[0]} onClick={()=>{this.toDetail(album.aid)}} />
           }
-          <div className={this.state.descriptionPartState}  onClick={this.toAlbumDetail}>
+          <div className={this.state.descriptionPartState}>
             <div className={styles.picNum}>共{detail.photos.length}张</div>
-            <img className={styles.pictures} src={require('../../../../assets/icon/pictures.svg')} />
+            <img className={styles.pictures} src={require('../../../../assets/icon/pictures.svg')}  onClick={this.toAlbumDetail} />
           </div>
         </div>
         <div className={styles.interactPart}>

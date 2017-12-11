@@ -5,7 +5,7 @@ import React from 'react';
 import { connect } from 'dva';
 import { Row, Col, Button, Table, Avatar, Tabs } from 'antd';
 import MainLayout from '../../../components/MainLayout/MainLayout';
-import styles from './UserMessage.css';
+import styles from './UserMessage.less';
 import UserSpace from '../../../components/UserPage/UserSpace/UserSpace';
 import Nav from '../../../components/UserPage/Nav/Nav';
 import Message from '../../../components/UserPage/Message/Message';

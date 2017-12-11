@@ -15,11 +15,14 @@ function Message({ dispatch,detail }) {
   }
 
   return(
-    <div className={styles.message}>
+    <div className={styles.content}>
       <Avatar className={styles.avatar} src={detail.avatar} />
-      <div className={styles.messageMaker} onClick={handleVisit.bind(this)}>@{detail.username}</div>
-      <div className={styles.text}>{detail.text}</div>
-      <div className={styles.date}>{detail.formatDate}</div>
+      <div className={styles.message} onClick={handleVisit.bind(this)}>
+        <span className={styles.messageMaker}>@{detail.username}</span>
+        <span className={styles.text}>{detail.text}</span>
+        <span className={styles.date}>{detail.formatDate}</span>
+      </div>
+
     </div>
   )
 }

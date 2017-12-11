@@ -8,6 +8,7 @@ import ShowInfo from './routes/Show/ShowInfo';
 import UserFollow from './routes/UserPage/UserFollow/UserFollow';
 import UserShow from './routes/UserPage/UserShow/UserShow';
 import UserAlbum from './routes/UserPage/UserAlbum/UserAlbum';
+import AlbumDetail from './routes/UserPage/UserAlbum/AlbumDetail';
 import PostPhoto from './routes/PostPhoto/PostPhoto';
 import Login from './routes/Login/Login';
 import ChangePassword from './routes/ChangePassword/ChangePassword';
@@ -30,6 +31,7 @@ function RouterConfig({ hashHistory }) {
       <Route path="/Forum" component={Forum} />
       <Route path="/UserFollow" component={UserFollow} />
       <Route path="/UserAlbum" component={UserAlbum} />
+      <Route path="/AlbumDetail" component={AlbumDetail} />
       <Route path="/UserMessage" component={UserMessage} />
       <Route path="/Login" component={Login} />
       <Route path="/ChangePassword" component={ChangePassword} />

@@ -44,16 +44,6 @@ class UserAlbum extends React.Component {
     })
   };
 
-  toDetail = (aid) => {
-    this.props.dispatch(routerRedux.push({
-      pathname: '/AlbumDetail',
-      query: {
-        aid
-      }
-    }))
-  };
-
-
   render() {
     let { albums, location } = this.props;
     let column1 = [];

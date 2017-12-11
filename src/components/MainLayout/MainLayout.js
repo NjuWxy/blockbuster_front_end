@@ -38,14 +38,14 @@ class MainLayout extends React.Component {
   };
   /**
    * 点击发布（发布活动或发布大片儿），需要首先判断用户是否已登陆
-   * @param e
    */
-  handlePost = (e) => {
+  handlePost = () => {
     if(!isLogin()){
       message.error("请先登陆");
+      return;
     }else {
       this.props.dispatch(routerRedux.push({
-        pathname: `/${e.key}`
+        pathname: `/PostPhoto`
       }))
     }
   };
@@ -72,7 +72,7 @@ class MainLayout extends React.Component {
             </Col>
             <Col span={4}>
               <Input
-                placeholder="搜索大片儿秀／活动"
+                placeholder="输入关键字搜索大片儿"
                 className={styles.search}
                 onPressEnter={this.handleSearch}
               />
@@ -112,18 +112,7 @@ class MainLayout extends React.Component {
                 </Col>
                 <Col span={1}>
                   <Affix offsetTop={68}>
-                    <Dropdown
-                      overlay=
-                        {
-                          <Menu onClick={this.handlePost} selectedKeys={['']}>
-                            <Menu.Item className={styles.layMenu} key="PostPhoto">秀大片儿</Menu.Item>
-                            <Menu.Item className={styles.layMenu} key="PostActivity">发布活动</Menu.Item>
-                          </Menu>
-                        }
-                      placement="bottomRight"
-                    >
-                      <Icon className={styles.plus} type="plus-circle"/>
-                    </Dropdown>
+                    <Icon className={styles.plus} type="plus-circle" onClick={this.handlePost} />
                   </Affix>
                   <BackTop/>
                 </Col>
